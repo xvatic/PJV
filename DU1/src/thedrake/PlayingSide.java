@@ -2,13 +2,12 @@ package thedrake;
 
 import java.io.PrintWriter;
 
-public enum TroopFace implements JSONSerializable{
-    AVERS,
-    REVERS;
+public enum PlayingSide implements JSONSerializable {
+    ORANGE,
+    BLUE;
 
     @Override
     public void toJSON(PrintWriter writer) {
         writer.print("\"" + this.name() + "\"");
     }
 }
-

@@ -75,18 +75,25 @@ public class GameState implements JSONSerializable{
     }
 
     private boolean canStepFrom(TilePos origin) {
-        if (this.result != GameResult.IN_PLAY) {
-            return false;
-        }
+
 
         if (this.sideOnTurn == PlayingSide.BLUE) {
             if (this.blueArmy.boardTroops().isPlacingGuards()) {
+                if (blueArmy.stack().size() < 5) {
+                    return this.blueArmy.boardTroops().at(origin).isPresent();
+                }
                 return false;
             }
             return this.blueArmy.boardTroops().at(origin).isPresent();
 
         } else {
+
             if (this.orangeArmy.boardTroops().isPlacingGuards()) {
+
+                if (orangeArmy.stack().size() < 5) {
+
+                    return this.orangeArmy.boardTroops().at(origin).isPresent();
+                }
                 return false;
             }
             return this.orangeArmy.boardTroops().at(origin).isPresent();
@@ -103,7 +110,6 @@ public class GameState implements JSONSerializable{
         if (this.orangeArmy.boardTroops().at(target).isPresent() || this.blueArmy.boardTroops().at(target).isPresent()) {
            return false;
         }
-
         return this.board.at(target).canStepOn();
     }
 

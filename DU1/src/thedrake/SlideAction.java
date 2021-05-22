@@ -23,6 +23,8 @@ public class SlideAction extends TroopAction{
             } else if (state.canCapture(origin, target)) {
                 result.add(new StepAndCapture(origin, (BoardPos) target));
                 break;
+            } else if (!state.canStep(origin, target)){
+                break;
             }
             target = target.stepByPlayingSide(offset(), side);
         }

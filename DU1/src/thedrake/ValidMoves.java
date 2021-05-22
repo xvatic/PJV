@@ -14,7 +14,7 @@ public class ValidMoves {
     }
 
     public List<Move> boardMoves(BoardPos position) {
-        if (state.armyOnTurn().boardTroops().isPlacingGuards())
+        if (state.armyOnTurn().boardTroops().isPlacingGuards() && state.armyOnTurn().stack().size() > 4)
             return Collections.emptyList();
 
         Tile tile = state.tileAt(position);

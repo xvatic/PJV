@@ -73,6 +73,8 @@ public class GameController implements BoardViewContext{
             return;
         }
         List<Troop> stack = ((BoardView) gameBoard.getChildren().get(0)).gameState.getBlueStack();
+        if (stack.size() == 0)
+            return;
         ((BoardView) gameBoard.getChildren().get(0)).tileViewSelectedStack(new TileView(new BoardPos(4,-1,-1), new TroopTile(stack.get(0), PlayingSide.BLUE, TroopFace.AVERS), (BoardView) gameBoard.getChildren().get(0)));
     }
 
@@ -81,6 +83,8 @@ public class GameController implements BoardViewContext{
             return;
         }
         List<Troop> stack = ((BoardView) gameBoard.getChildren().get(0)).gameState.getOrangeStack();
+        if (stack.size() == 0)
+            return;
         ((BoardView) gameBoard.getChildren().get(0)).tileViewSelectedStack(new TileView(new BoardPos(4,-1,-1), new TroopTile(stack.get(0), PlayingSide.ORANGE, TroopFace.AVERS), (BoardView) gameBoard.getChildren().get(0)));
     }
 

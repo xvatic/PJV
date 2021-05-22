@@ -8,6 +8,7 @@ public class BoardTroops implements JSONSerializable{
     private final Map<BoardPos, TroopTile> troopMap;
     private final TilePos leaderPosition;
     private final int guards;
+    private boolean midGame = false;
     //private Object IllegalArgumentException;
 
     public BoardTroops(PlayingSide playingSide) {
@@ -27,6 +28,7 @@ public class BoardTroops implements JSONSerializable{
             this.leaderPosition = leaderPosition;
             this.troopMap = troopMap;
             this.playingSide = playingSide;
+
     }
 
     public Optional<TroopTile> at(TilePos pos) {
@@ -50,7 +52,9 @@ public class BoardTroops implements JSONSerializable{
     }
 
     public boolean isPlacingGuards() {
-        // Místo pro váš kód
+        if (midGame) {
+            return false;
+        }
         return this.leaderPosition != TilePos.OFF_BOARD && this.guards < 2;
     }
 
@@ -83,11 +87,14 @@ public class BoardTroops implements JSONSerializable{
         } else {
             guards+= this.guards;
         }
+        if (guards >= 2) {
+            this.midGame = true;
+        }
         return new BoardTroops(this.playingSide, newMap, leaderPosition, guards);
     }
 
     public BoardTroops troopStep(BoardPos origin, BoardPos target) throws IllegalArgumentException, IllegalStateException{
-        if(!this.isLeaderPlaced() || this.isPlacingGuards()) {
+        if(!this.isLeaderPlaced() ) {
             throw new IllegalStateException();
         }
         if (this.troopMap.containsKey(target) || !this.troopMap.containsKey(origin)) {
